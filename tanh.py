@@ -1,7 +1,7 @@
 
 import streamlit as st
 import numpy as np
-import matplotlib.pyplot as plt
+import pandas as pd
 
 # Streamlit page configuration
 st.set_page_config(
@@ -25,23 +25,22 @@ y = tanh(x)
 st.subheader("Mathematical Formula")
 st.latex(r"f(x) = \tanh(x)")
 
+# Create DataFrame
+df = pd.DataFrame({
+    "Input (x)": x,
+    "Tanh Output": y
+})
+
 # Plot graph
-fig, ax = plt.subplots(figsize=(8, 5))
+st.subheader("Tanh Activation Function Graph")
 
-ax.plot(x, y, label="Tanh", linewidth=2)
-ax.axhline(0, color="black", linewidth=0.5)
-ax.axvline(0, color="black", linewidth=0.5)
+st.line_chart(
+    df.set_index("Input (x)")
+)
 
-ax.set_title("Tanh Activation Function")
-ax.set_xlabel("Input (x)")
-ax.set_ylabel("Output f(x)")
-ax.set_ylim(-1.2, 1.2)
-ax.grid(True)
-ax.legend()
-
-st.pyplot(fig)
-
+# Explanation
 st.subheader("Explanation")
+
 st.write("""
 Tanh converts input values into an output range
 between -1 and 1.
